@@ -13,9 +13,9 @@
     <div class="additional-logins">
 
         {{ form_start(registration_form, { 'attr': {'class': 'form-signin'} }) }}
-        <h1 class="h3 mb-3 font-weight-normal">Register Account</h1>
+        <h1 class="h3 mb-3 font-weight-normal">注册账号</h1>
         <div class="mb-2">
-            Enter the following information to register your account with DOMjudge.
+            填写以下信息注册您的DOMjudge账号
         </div>
         {# Form elements will be renderd automatically #}
         {{ form_end(registration_form) }}
@@ -27,33 +27,71 @@
         $(function () {
             $('#user_registration_existingAffiliation').select2();
 
+            var $teamCategories = $('[name="user_registration[teamCategory]"]');
             var $affiliationRadios = $('[name="user_registration[affiliation]"]');
 
-            if ($affiliationRadios.length) {
-                $affiliationRadios.on('change', function () {
+            var $elementVisibility = function () {
+                if ($affiliationRadios.length) {
+                    var teamCategoryValue = $teamCategories.children('option:selected').text();
+                    var $affiliationGroup = $('#user_registration_affiliation_0').closest('.form-group');
                     var $affiliationNameGroup = $('#user_registration_affiliationName').closest('.form-group');
                     var $affiliationCountryGroup = $('#user_registration_affiliationCountry').closest('.form-group');
                     var $existingAffiliationGroup = $('#user_registration_existingAffiliation').closest('.form-group');
-                    var value = $affiliationRadios.filter(':checked').val();
 
-                    switch (value) {
-                        case 'none':
-                            $affiliationNameGroup.hide();
-                            $affiliationCountryGroup.hide();
-                            $existingAffiliationGroup.hide();
-                            break;
-                        case 'new':
-                            $affiliationNameGroup.show();
-                            $affiliationCountryGroup.show();
-                            $existingAffiliationGroup.hide();
-                            break;
-                        case 'existing':
-                            $affiliationNameGroup.hide();
-                            $affiliationCountryGroup.hide();
-                            $existingAffiliationGroup.show();
-                            break;
+                    if (teamCategoryValue === '校内'){
+                        $affiliationGroup.hide();
+                        $affiliationNameGroup.hide();
+                        $affiliationCountryGroup.hide();
+                        $existingAffiliationGroup.hide();
                     }
-                });
+                    else{
+                        $affiliationGroup.show();
+                        var affiliationValue = $affiliationRadios.filter(':checked').val();
+                        switch (affiliationValue) {
+                            case 'none':
+                                $affiliationNameGroup.hide();
+                                $affiliationCountryGroup.hide();
+                                $existingAffiliationGroup.hide();
+                                break;
+                            case 'new':
+                                $affiliationNameGroup.show();
+                                $affiliationCountryGroup.show();
+                                $existingAffiliationGroup.hide();
+                                break;
+                            case 'existing':
+                                $affiliationNameGroup.hide();
+                                $affiliationCountryGroup.hide();
+                                $existingAffiliationGroup.show();
+                                break;
+                        }
+                    }
+                }
+
+                var $realNameGroup = $('#user_registration_realName').closest('.form-group');
+                var $buaaStudentNumberGroup = $('#user_registration_buaaStudentNumber').closest('.form-group');
+                var $usernameGroup = $('#user_registration_username').closest('.form-group');
+                var $teamNameGroup = $('#user_registration_teamName').closest('.form-group');
+
+                if (teamCategoryValue === '校内'){
+                    $realNameGroup.show();
+                    $buaaStudentNumberGroup.show();
+                    $usernameGroup.hide();
+                    $teamNameGroup.hide();
+                }
+                else{
+                    $realNameGroup.hide();
+                    $buaaStudentNumberGroup.hide();
+                    $usernameGroup.show();
+                    $teamNameGroup.show();
+                }
+            }
+
+            if ($teamCategories.length){
+                $teamCategories.on('change', $elementVisibility);
+            }
+
+            if ($affiliationRadios.length) {
+                $affiliationRadios.on('change', $elementVisibility);
 
                 var $checkedRadio = $affiliationRadios.filter(':checked');
                 if ($checkedRadio.length === 0) {

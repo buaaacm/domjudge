@@ -151,6 +151,15 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     private $user_roles;
 
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean", name="share_info",
+     *     options={"comment"="Whether the user allows to share personnal information with the sponser",
+     *              "default"="1"},
+     *     nullable=false)
+     */
+    private $share_info;
+
 
     public function getSalt()
     {
@@ -611,5 +620,29 @@ class User implements UserInterface, EquatableInterface, \Serializable
         }
 
         return true;
+    }
+
+    /**
+     * Get share_info
+     *
+     * @return boolean
+     */
+    public function getShareInfo(): ?bool
+    {
+        return $this->share_info;
+    }
+
+    /**
+     * Set share_info
+     *
+     * @param boolean $share_info
+     *
+     * @return User
+     */
+    public function setShareInfo(bool $share_info): self
+    {
+        $this->share_info = $share_info;
+
+        return $this;
     }
 }

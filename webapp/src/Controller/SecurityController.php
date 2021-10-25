@@ -137,12 +137,8 @@ class SecurityController extends AbstractController
 
             $teamName = $registration_form->get('teamName')->getData();
 
-            if ($selfRegistrationCategoriesCount === 1) {
-                $teamCategory = $em->getRepository(TeamCategory::class)->findOneBy(['allow_self_registration' => 1]);
-            } else {
-                // $selfRegistrationCategoriesCount > 1, 'teamCategory' field exists
-                $teamCategory = $registration_form->get('teamCategory')->getData();
-            }
+            // $selfRegistrationCategoriesCount >= 1, 'teamCategory' field exists
+            $teamCategory = $registration_form->get('teamCategory')->getData();
 
             // Create a team to go with the user, then set some team attributes
             $team = new Team();
