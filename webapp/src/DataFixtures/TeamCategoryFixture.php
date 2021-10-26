@@ -30,6 +30,18 @@ class TeamCategoryFixture extends AbstractExampleDataFixture
             ->setColor('#ff99cc')
             ->setVisible(false);
 
+        $organisation = new TeamCategory();
+        $organisation
+            ->setName('校内')
+            ->setSortorder(0)
+            ->setColor('#ffffff');
+
+        $organisation = new TeamCategory();
+        $organisation
+            ->setName('校内')
+            ->setSortorder(0)
+            ->setColor('#cccccc');
+
         $manager->persist($participants);
         $manager->persist($observers);
         $manager->persist($organisation);
