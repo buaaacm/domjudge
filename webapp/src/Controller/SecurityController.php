@@ -172,7 +172,7 @@ class SecurityController extends AbstractController
             $em->persist($team);
             $em->flush();
 
-            $this->addFlash('success', 'Account registered successfully. Please log in.');
+            $this->addFlash('success', '注册成功，请登录');
 
             return $this->redirect($this->generateUrl('login'));
         }
