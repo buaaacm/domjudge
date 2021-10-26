@@ -7,7 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class TeamCategoryFixture extends AbstractExampleDataFixture
 {
-    public const PARTICIPANTS_REFERENCE = 'participants';
+    public const IN_SCHOOL_REFERENCE = 'in_school';
 
     /**
      * @inheritDoc
@@ -30,23 +30,25 @@ class TeamCategoryFixture extends AbstractExampleDataFixture
             ->setColor('#ff99cc')
             ->setVisible(false);
 
-        $organisation = new TeamCategory();
-        $organisation
+        $inSchool = new TeamCategory();
+        $inSchool
             ->setName('校内')
             ->setSortorder(0)
             ->setColor('#ffffff');
 
-        $organisation = new TeamCategory();
-        $organisation
-            ->setName('校内')
+        $outSchool = new TeamCategory();
+        $outSchool
+            ->setName('校外')
             ->setSortorder(0)
             ->setColor('#cccccc');
 
         $manager->persist($participants);
         $manager->persist($observers);
         $manager->persist($organisation);
+        $manager->persist($inSchool);
+        $manager->persist($outSchool);
         $manager->flush();
 
-        $this->addReference(self::PARTICIPANTS_REFERENCE, $participants);
+        $this->addReference(self::IN_SCHOOL_REFERENCE, $inSchool);
     }
 }
