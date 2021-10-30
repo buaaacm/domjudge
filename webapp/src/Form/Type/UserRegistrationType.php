@@ -264,7 +264,7 @@ class UserRegistrationType extends AbstractType
                     $context->buildViolation('请使用大写字母')
                         ->atPath('buaaStudentNumber')
                         ->addViolation();
-                } elseif ($this->em->getRepository(User::class)->findOneBy(['name' => $studentNumber])) {
+                } elseif ($this->em->getRepository(User::class)->findOneBy(['username' => $studentNumber])) {
                     $context->buildViolation('该学号已被注册')
                         ->atPath('buaaStudentNumber')
                         ->addViolation();
