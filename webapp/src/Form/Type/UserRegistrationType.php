@@ -201,7 +201,7 @@ class UserRegistrationType extends AbstractType
                 'mapped' => false,
             ])
             ->add('shareInfo', CheckboxType::class, [
-                'label' => '是否同意向赞助商提供您的信息？',
+                'label' => '是否同意向赞助商（北京市商汤科技开发有限公司）提供您的信息？您的信息将用于赞助商开展校企合作，推荐实习，招聘员工',
                 'required' => false,
                 'attr' => [
                     'checked' => 'checked',
