@@ -19,7 +19,7 @@
         {{ extrahead|default('') }}
     {% endblock %}
 </head>
-<body style="padding-top: 4.5rem;">
+<body {% block body_style_for_bcpc %}style="padding-top: 4.5rem;"{% endblock %}>
 {% block menu %}{% endblock %}
 {% block body %}
     <div class="container-fluid">
